@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Chair {
+  id          String     @id @default(cuid())
+  name        String
+  clerkId     String?    @unique
+  email       String?    @unique
+  role        Role
+  committee   Committee  @relation(fields: [committeeId], references: [id])
+  committeeId Int        // Foreign key to the Committee model
+}
+
+model Committee {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  topic       String
+  level       Level      // New field
+  chairs      Chair[]
+  delegates   Delegate[]
+  motions     Motion[]
+}
+
+model Session {
+  id          Int     @id @default(autoincrement())
+  date        DateTime   @default(now())
+  startTime   DateTime
+  endTime     DateTime?
+  motions     Motion[]
+  status      SessionStatus @default(ONGOING)
+  asistencias Asistencia[]
+  
+}
+
+model Delegate {
+  id          String     @id @default(cuid())
+  name        String
+  country     Country   @relation(fields: [countryId], references: [id])
+  countryId   Int
+  committee   Committee  @relation(fields: [committeeId], references: [id])
+  committeeId Int
+  passedMotionParticipations PassedMotionDelegate[]
+  asistencias Asistencia[]
+}
+
+model Country {
+  id          Int     @id @default(autoincrement())
+  name        String
+  emoji       String?
+  delegates   Delegate[]
+}
+
+model Asistencia {
+  id         Int     @id @default(autoincrement())
+  delegateId String
+  delegate   Delegate @relation(fields: [delegateId], references: [id])
+  sessionId  Int
+  session    Session  @relation(fields: [sessionId], references: [id])
+  state       State  
+
+  @@unique([delegateId, sessionId]) // Add this line
+}
+
+model Motion {
+  id              String     @id @default(cuid())
+  type            MotionType
+  topic           String?
+  totalTime       Int
+  timePerDelegate Int?
+  maxDelegates    Int?
+  proposedBy      String
+  committee       Committee  @relation(fields: [committeeId], references: [id])
+  committeeId     Int
+  session         Session    @relation(fields: [sessionId], references: [id])
+  sessionId       Int
+  inFavorVotes    Int        @default(0)
+  passedMotion    PassedMotion?
+  createdAt       DateTime   @default(now())
+}
+
+model PassedMotion {
+  id              String     @id @default(cuid())
+  motion          Motion     @relation(fields: [motionId], references: [id])
+  motionId        String     @unique
+  startTime       DateTime   @default(now())
+  status          MotionStatus @default(ONGOING)
+  participants    PassedMotionDelegate[]
+}
+
+model PassedMotionDelegate {
+  id              String       @id @default(cuid())
+  passedMotion    PassedMotion @relation(fields: [passedMotionId], references: [id])
+  passedMotionId  String
+  delegate        Delegate     @relation(fields: [delegateId], references: [id])
+  delegateId      String
+  speakingOrder   Int?
+  timeUsed        Int         @default(0)
+  notes           String?
+
+  @@unique([passedMotionId, delegateId])
+}
+
+enum SessionStatus {
+  ONGOING
+  FINISHED
+  SUSPENDED
+  SCHEDULED
+}
+
+enum MotionStatus {
+  ONGOING
+  FINISHED
+  SUSPENDED
+}
+
+enum MotionType {
+  MODERATED_CAUCUS
+  UNMODERATED_CAUCUS
+  CONSULTATION_OF_THE_WHOLE
+  ROUND_ROBIN
+  SPEAKERS_LIST
+  SUSPENSION_OF_THE_MEETING
+  ADJOURNMENT_OF_THE_MEETING
+  CLOSURE_OF_DEBATE
+}
+
+enum Level {
+  ESCOLAR
+  UNIVERSITARIO
+  MIXED
+}
+
+enum Role {
+  DIRECTOR
+  DIRECTORA
+  DIRECTOR_ADJUNTO
+  DIRECTORA_ADJUNTA
+  MODERADOR
+  MODERADORA
+  CRISIS_ROOM
+}
+
+enum State {
+  PRESENTE
+  AUSENTE
+  PRESENTE_Y_VOTANDO
+}
