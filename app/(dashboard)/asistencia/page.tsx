@@ -3,14 +3,14 @@ import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/utils/db";
 
 
-const getDelegates = async (sesId: string) => {
+const getDelegates = async (sesId: number) => {
   const chair = await getUserByClerkId();
   console.log(sesId);
 
   // First try to get attendance records
   const delegatesWithAttendance = await prisma.asistencia.findMany({
     where: { 
-      sessionId: parseInt(sesId, 10),
+      sessionId: sesId,
       delegate: {
         committeeId: chair.committeeId
       }
@@ -85,21 +85,17 @@ export default async function AsistenciaPage({
 }: {
   searchParams: { sessionId?: string }
 }) {
-  // Extract sessionId directly from searchParams
-  const sessionId = searchParams?.sessionId;
+  // Parse sessionId to a number, defaulting to 1 if not provided or invalid
+  const sessionId = searchParams.sessionId ? parseInt(searchParams.sessionId, 10) : 1;
 
-  console.log("SessionId:", sessionId); // Log to check the value
-
-  // If you need sessionId as a number, you can parse it here
-  const sessionIdNumber = sessionId ? parseInt(sessionId, 10) : 1;
-
-  const del = await getDelegates(sessionIdNumber);
+  // Now sessionId is already a number, so we can pass it directly
+  const del = await getDelegates(sessionId);
 
   return (
     <Assistance 
       delegates={del.delegates} 
       isRegistered={del.isRegistered} 
-      sessionId={sessionIdNumber} 
+      sessionId={sessionId} 
     />
   );
 }
