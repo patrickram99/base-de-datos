@@ -17,7 +17,7 @@ const DashboardLayout = ({ children, session, committee }) => {
               style={{ width: "10%", height: "auto" }} // optional
             />
           </Link>
-          <span className="font-medium text-6xl p-4">{committee}</span>
+          <h1 className="font-medium text-6xl p-4">{committee}</h1>
         </div>
       </div>
 

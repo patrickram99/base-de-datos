@@ -27,7 +27,8 @@ const getDelegates = async () => {
 };
 
 // Server component
-export default async function MocionPage({ searchParams }: { searchParams: { sessionId: string } }) {
+export default async function MocionPage(props: { searchParams: Promise<{ sessionId: string }> }) {
+  const searchParams = await props.searchParams;
   const delegates = await getDelegates();
 
   // Access the sessionId from searchParams

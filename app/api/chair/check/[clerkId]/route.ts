@@ -2,10 +2,8 @@
 import { prisma } from "@/utils/db"
 import { NextResponse } from "next/server"
 
-export async function GET(
-  request: Request,
-  { params }: { params: { clerkId: string } }
-) {
+export async function GET(request: Request, props: { params: Promise<{ clerkId: string }> }) {
+  const params = await props.params;
   try {
     const chair = await prisma.chair.findUnique({
       where: {

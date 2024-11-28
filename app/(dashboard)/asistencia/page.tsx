@@ -80,11 +80,12 @@ const getDelegates = async (sesId: number) => {
 };
 
 
-export default async function AsistenciaPage({
-  searchParams,
-}: {
-  searchParams: { sessionId?: string }
-}) {
+export default async function AsistenciaPage(
+  props: {
+    searchParams: Promise<{ sessionId?: string }>
+  }
+) {
+  const searchParams = await props.searchParams;
   // Parse sessionId to a number, defaulting to 1 if not provided or invalid
   const sessionId = searchParams.sessionId ? parseInt(searchParams.sessionId, 10) : 1;
 
