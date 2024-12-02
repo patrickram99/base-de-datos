@@ -133,110 +133,6 @@ async function main() {
     },
   ];
 
-  // const chairs = [
-  //   { name: "SILVIO SOLORZANO", role: Role.DIRECTOR, committeeId: 1 },
-  //   { name: "ZAFIRO ZAPANA", role: Role.DIRECTORA_ADJUNTA, committeeId: 1 },
-  //   { name: "DIANA MAMANI", role: Role.MODERADORA, committeeId: 1 },
-
-  //   { name: "ALVARO TAPIA", role: Role.DIRECTOR, committeeId: 2 },
-  //   { name: "DANIELA ENDO", role: Role.DIRECTORA_ADJUNTA, committeeId: 2 },
-  //   { name: "SAID SALAS", role: Role.MODERADOR, committeeId: 2 },
-
-  //   { name: "MARCELO CARPIO", role: Role.DIRECTOR, committeeId: 3 },
-  //   { name: "MARCELLO RODRIGUEZ", role: Role.DIRECTOR_ADJUNTO, committeeId: 3 },
-  //   { name: "BRUNO RODRIGUEZ", role: Role.MODERADOR, committeeId: 3 },
-
-  //   {
-  //     name: "ALEJANDRA ESCOBEDO",
-  //     role: Role.DIRECTORA_ADJUNTA,
-  //     committeeId: 4,
-  //   },
-  //   { name: "LIZBETH LAROTA", role: Role.DIRECTORA_ADJUNTA, committeeId: 4 },
-  //   { name: "JESSICA HUARCA", role: Role.MODERADORA, committeeId: 4 },
-
-  //   { name: "GABRIELA VARGAS", role: Role.DIRECTORA, committeeId: 5 },
-  //   { name: "GABRIEL BACA", role: Role.DIRECTOR_ADJUNTO, committeeId: 5 },
-  //   { name: "JULIO BARREDA", role: Role.MODERADOR, committeeId: 5 },
-
-  //   { name: "SHARON SOLIS", role: Role.DIRECTORA, committeeId: 6 },
-  //   { name: "MASSIEL FARFAN", role: Role.DIRECTORA_ADJUNTA, committeeId: 6 },
-  //   { name: "ALEXIA PAZ", role: Role.MODERADORA, committeeId: 6 },
-
-  //   { name: "ALEJANDRO SANCHEZ", role: Role.DIRECTOR, committeeId: 7 },
-  //   { name: "VALERIA MOROTE", role: Role.DIRECTORA_ADJUNTA, committeeId: 7 },
-  //   { name: "ALFREDO ESCAJADILLO", role: Role.MODERADOR, committeeId: 7 },
-
-  //   { name: "SOPHIA VALDIVIA", role: Role.DIRECTORA, committeeId: 8 },
-  //   { name: "GABRIEL CHAVEZ", role: Role.DIRECTOR_ADJUNTO, committeeId: 8 },
-  //   { name: "JOSUE RODRIGUEZ", role: Role.MODERADOR, committeeId: 8 },
-
-  //   { name: "FABIAN GALDOS", role: Role.DIRECTOR, committeeId: 9 },
-  //   { name: "VALERIA VILLAROEL", role: Role.DIRECTORA_ADJUNTA, committeeId: 9 },
-  //   { name: "ALESSA SOZA", role: Role.MODERADORA, committeeId: 9 },
-
-  //   { name: "IGNACIO TEJADA", role: Role.DIRECTOR, committeeId: 10 },
-  //   { name: "MACARENA POLO", role: Role.DIRECTORA_ADJUNTA, committeeId: 10 },
-  //   { name: "RODRIGO LLERENA", role: Role.MODERADOR, committeeId: 10 },
-
-  //   { name: "JOAQUIN ZARATE", role: Role.DIRECTOR, committeeId: 11 },
-  //   { name: "RODRIGO CARPIO", role: Role.DIRECTOR_ADJUNTO, committeeId: 11 },
-  //   { name: "DIEGO CUETO", role: Role.MODERADOR, committeeId: 11 },
-
-  //   { name: "TATIANA ECHEVARRIA", role: Role.DIRECTORA, committeeId: 12 },
-  //   {
-  //     name: "JEREMIAS PEÑARANDA",
-  //     role: Role.DIRECTOR_ADJUNTO,
-  //     committeeId: 12,
-  //   },
-  //   { name: "SEBASTIAN BARREDA", role: Role.MODERADOR, committeeId: 12 },
-
-  //   { name: "SIBONÉ DAVILA", role: Role.DIRECTORA, committeeId: 13 },
-  //   { name: "GABRIEL GALVEZ", role: Role.DIRECTOR_ADJUNTO, committeeId: 13 },
-  //   { name: "BRAYAN PARISACA", role: Role.MODERADOR, committeeId: 13 },
-
-  //   { name: "SANTIAGO HUACO", role: Role.DIRECTOR, committeeId: 14 },
-  //   { name: "MARIANA OTERO", role: Role.DIRECTORA_ADJUNTA, committeeId: 14 },
-  //   { name: "CAMILA GOMEZ", role: Role.MODERADORA, committeeId: 14 },
-
-  //   { name: "BRUNO LUNA", role: Role.DIRECTOR, committeeId: 15 },
-  //   { name: "DANIELA LOPEZ", role: Role.DIRECTORA_ADJUNTA, committeeId: 15 },
-  //   { name: "DANILO LAZO", role: Role.MODERADOR, committeeId: 15 },
-
-  //   { name: "CLAUDIA DAVILA", role: Role.DIRECTORA, committeeId: 16 },
-  //   { name: "LUCIANA PALACIOS", role: Role.DIRECTORA_ADJUNTA, committeeId: 16 },
-  //   { name: "SANTIAGO MENDEZ", role: Role.MODERADOR, committeeId: 16 },
-
-  //   { name: "LUCIANA RODRIGUEZ", role: Role.DIRECTORA, committeeId: 17 },
-  //   { name: "VALERIA MONROY", role: Role.DIRECTORA_ADJUNTA, committeeId: 17 },
-  //   { name: "ARIANA TAPIA", role: Role.MODERADORA, committeeId: 17 },
-
-  //   { name: "ANA BELÉN AMPUERO", role: Role.DIRECTORA, committeeId: 18 },
-  //   { name: "LUCAS PILCO", role: Role.DIRECTOR_ADJUNTO, committeeId: 18 },
-  //   { name: "ANGELY CONDORENA", role: Role.MODERADORA, committeeId: 18 },
-
-  //   { name: "ANALU AMÉZQUITA", role: Role.DIRECTORA, committeeId: 19 },
-  //   { name: "LUIS VILCHEZ", role: Role.DIRECTOR_ADJUNTO, committeeId: 19 },
-  //   { name: "ANGHELA RUIZ", role: Role.MODERADORA, committeeId: 19 },
-
-  //   { name: "ADRIANA PICKMANN", role: Role.DIRECTORA, committeeId: 20 },
-  //   { name: "SOFIA PERALTA", role: Role.DIRECTORA_ADJUNTA, committeeId: 20 },
-  //   { name: "FARID BELLIDO", role: Role.MODERADOR, committeeId: 20 },
-
-  //   { name: "ALEJANDRO CARDENAS", role: Role.DIRECTOR, committeeId: 21 },
-  //   { name: "MAJO NÚÑEZ", role: Role.DIRECTORA_ADJUNTA, committeeId: 21 },
-  //   { name: "OLGA ARENAS", role: Role.MODERADORA, committeeId: 21 },
-
-  //   { name: "MAXIME KIPS", role: Role.DIRECTOR, committeeId: 22 },
-  //   { name: "PIERO ROJAS", role: Role.DIRECTOR_ADJUNTO, committeeId: 22 },
-  //   { name: "MARIA SALAZAR", role: Role.MODERADORA, committeeId: 22 },
-
-  //   { name: "KEVIN BARRETO", role: Role.DIRECTOR, committeeId: 23 },
-  //   { name: "ATILIO MONTALVO", role: Role.DIRECTOR_ADJUNTO, committeeId: 23 },
-  //   { name: "LUCIANA CORNEJO", role: Role.MODERADORA, committeeId: 23 },
-
-  //   { name: "OMAR MUJICA", role: Role.CRISIS_ROOM, committeeId: 12 },
-  // ];
-
   const sessions = [
     {
       date: new Date("2024-11-08"),
@@ -299,12 +195,6 @@ async function main() {
       data: committee,
     });
   }
-
-  // for (const chair of chairs) {
-  //   await prisma.chair.create({
-  //     data: chair,
-  //   });
-  // }
 
   for (const session of sessions) {
     await prisma.session.create({

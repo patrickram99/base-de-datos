@@ -47,6 +47,7 @@ model Delegate {
   committeeId Int
   passedMotionParticipations PassedMotionDelegate[]
   asistencias Asistencia[]
+  mociones   Motion[]
 }
 
 model Country {
@@ -74,7 +75,8 @@ model Motion {
   totalTime       Int
   timePerDelegate Int?
   maxDelegates    Int?
-  proposedBy      String
+  proposedById    String
+  proposedBy      Delegate   @relation(fields: [proposedById], references: [id])
   committee       Committee  @relation(fields: [committeeId], references: [id])
   committeeId     Int
   session         Session    @relation(fields: [sessionId], references: [id])
