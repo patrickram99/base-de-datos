@@ -15,7 +15,7 @@ function formatDate(date: Date) {
                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   
   const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-  var str = `${days[utcDate.getUTCDay()]}, ${utcDate.getUTCDate()} de ${months[utcDate.getUTCMonth()]} ${utcDate.getUTCFullYear()}`;
+  const str = `${days[utcDate.getUTCDay()]}, ${utcDate.getUTCDate()} de ${months[utcDate.getUTCMonth()]} ${utcDate.getUTCFullYear()}`;
   return str;
 }
 
