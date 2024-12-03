@@ -33,10 +33,13 @@ async function getDelegates() {
   return formattedDelegates
 }
 
-// @ts-ignore
-export default async function DesarrolloPage({ searchParams }: { searchParams: { motion: string } }) {
+interface Props {
+  searchParams: { [key: string]: string | undefined } // More generic typing
+}
+
+export default async function DesarrolloPage({ searchParams }: Props) {
   const delegates = await getDelegates()
-  const motionParam = searchParams.motion
+  const motionParam = searchParams.motion ?? '' // Handle undefined gracefully
 
   return <DesarrolloClient delegates={delegates} motionParam={motionParam} />
 }
