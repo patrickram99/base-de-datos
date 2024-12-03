@@ -33,6 +33,7 @@ async function getDelegates() {
   return formattedDelegates
 }
 
+// @ts-ignore
 export default async function DesarrolloPage({ searchParams }: { searchParams: { motion: string } }) {
   const delegates = await getDelegates()
   const motionParam = searchParams.motion
