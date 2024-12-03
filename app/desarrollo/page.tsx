@@ -34,12 +34,23 @@ async function getDelegates() {
 }
 
 interface Props {
-  searchParams: { [key: string]: string | undefined } // More generic typing
+  searchParams: { [key: string]: string | undefined }
 }
 
 export default async function DesarrolloPage({ searchParams }: Props) {
   const delegates = await getDelegates()
-  const motionParam = searchParams.motion ?? '' // Handle undefined gracefully
 
-  return <DesarrolloClient delegates={delegates} motionParam={motionParam} />
+  // `motionParam` comes from the search parameters or defaults to an empty JSON string
+  const motionParam = searchParams.motion ?? JSON.stringify({
+    id: 'default-motion',
+    type: 'MODERATED_CAUCUS',
+    country: null,
+    delegates: 0,
+    timePerDelegate: { minutes: 1, seconds: 30 },
+    totalTime: { minutes: 15, seconds: 0 },
+    votes: 0,
+    topic: 'Default Topic',
+  })
+
+  return <DesarrolloClient delegates={delegates} motionParam={encodeURIComponent(motionParam)} />
 }
