@@ -42,32 +42,42 @@ export default async function Home() {
           </div>
         ) : (
           <Image
-          src={'/jueves_7.jpg'}
-          alt="Welcome image"
-          fill={false}
-          width={1200}
-          height={800}
-          style={{ 
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain'
-          }}
-          priority
-        />
+            src={'/jueves_7.jpg'}
+            alt="Welcome image"
+            fill={false}
+            width={1200}
+            height={800}
+            style={{ 
+              maxWidth: '100%',
+              maxHeight: '100%',
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain'
+            }}
+            priority
+          />
         )}
       </div>
 
       {/* Content section */}
       <div className="w-full md:w-1/4 flex flex-col justify-center items-center p-4 md:p-8 bg-white">
-        <div className="mb-6 md:mb-8 w-32 md:w-40 relative aspect-square">
-          <Image
-            src="/armun.png"
-            alt="Logo"
-            fill
-            style={{ objectFit: 'contain' }}
-          />
+        <div className="flex flex-row justify-center items-center gap-4 mb-6 md:mb-8">
+          <div className="w-24 md:w-32 relative aspect-square">
+            <Image
+              src="/armun.png"
+              alt="Logo"
+              fill
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
+          <div className="w-24 md:w-32 relative aspect-square">
+            <Image
+              src="/logo.png"
+              alt="Logo 2"
+              fill
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
         </div>
         
         <p className="text-center mb-6 md:mb-8 text-gray-600 text-sm md:text-base px-4">

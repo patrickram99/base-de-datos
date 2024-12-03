@@ -36,8 +36,8 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
   const { toast } = useToast()
   const router = useRouter()
-  console.log("SDAKDSLADSKLASMDKLASMKLDMAS")
-  console.log(sessionId)
+  // console.log("SDAKDSLADSKLASMDKLASMKLDMAS")
+  // console.log(sessionId)
 
   const handleStateChange = (delegateId: string, newState: Delegate['state']) => {
     setDelegates(prevDelegates =>
@@ -50,8 +50,8 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
   const handleSave = async () => {
     if (isRegistered) {
       toast({
-        title: "Attendance Already Registered",
-        description: "Attendance has already been registered for this session.",
+        title: "Asistencia guardada previamente",
+        description: `La asistencia para la sesion ${sessionId} ya fue registrada.`,
         variant: "destructive",
       })
       router.push(`/mocion?sessionId=${sessionId}`)
@@ -79,12 +79,12 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
       })
 
       if (!response.ok) {
-        throw new Error('Failed to save attendance')
+        throw new Error('Error al guardar la asistencia')
       }
 
       toast({
-        title: "Success",
-        description: "Attendance has been saved successfully.",
+        title: "Asistencia guardada",
+        description: "La asistencia se guardo con exito.",
       })
       router.push(`/mocion?sessionId=${sessionId}`)
     } catch (error) {
@@ -101,7 +101,7 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
     <>
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
-          <CardTitle>Delegate Assistance</CardTitle>
+          <CardTitle>Asistencia de los delegados</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -120,9 +120,9 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
                     <SelectValue placeholder="Select state" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="PRESENTE">Present</SelectItem>
-                    <SelectItem value="AUSENTE">Absent</SelectItem>
-                    <SelectItem value="PRESENTE_Y_VOTANDO">Present and Voting</SelectItem>
+                    <SelectItem value="PRESENTE">Presente</SelectItem>
+                    <SelectItem value="AUSENTE">Ausente</SelectItem>
+                    <SelectItem value="PRESENTE_Y_VOTANDO">Presente y Votando</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -131,7 +131,7 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
         </CardContent>
         <CardFooter>
           <Button onClick={handleSave} disabled={isRegistered}>
-            Save Assistance
+            Guardar Asistencia
           </Button>
         </CardFooter>
       </Card>
@@ -139,9 +139,9 @@ export default function Assistance({ delegates: initialDelegates, isRegistered, 
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Attendance Save</AlertDialogTitle>
+            <AlertDialogTitle>Confirmaciónd eguardado de Asistencia</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to save the attendance? This action cannot be undone.
+              ¿Esta seguro que desea guardar la asistencia?. Esta acción no se puede deshacer.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

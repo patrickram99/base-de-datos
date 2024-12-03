@@ -135,9 +135,10 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
     if (proposedMotions.length > 0) {
       const winningMotion = proposedMotions[0]
       if (['SUSPENSION_OF_THE_MEETING', 'ADJOURNMENT_OF_THE_MEETING', 'CLOSURE_OF_DEBATE'].includes(winningMotion.type)) {
-        router.push('/debate')
-      } else {
         setShowDebateManager(true)
+      } else {
+        const motionData = JSON.stringify(winningMotion)
+        router.push(`/desarrollo?motion=${encodeURIComponent(motionData)}`)
       }
     }
   }
@@ -171,12 +172,12 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
     <div className="p-4">
       <div className="flex flex-wrap justify-between gap-2 mb-4">
         <Button onClick={handleAsistenciaClick}>
-          <UserCheck className="mr-2 h-4 w-4" /> Register Assistance
+          <UserCheck className="mr-2 h-4 w-4" /> Registrar Asistencia
         </Button>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button>
-              <PlusCircle className="mr-2 h-4 w-4" /> New Motion
+              <PlusCircle className="mr-2 h-4 w-4" /> Nueva Mocion
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -186,34 +187,34 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="motion-type">Motion Type</Label>
+                  <Label htmlFor="motion-type">Tipo de Mocion</Label>
                   <Select
                     value={motion.type}
                     onValueChange={(value: MotionType) => setMotion(prev => ({ ...prev, type: value }))}
                   >
                     <SelectTrigger id="motion-type">
-                      <SelectValue placeholder="Select motion type" />
+                      <SelectValue placeholder="Seleccione el tipo de mocion" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="MODERATED_CAUCUS">Moderated Caucus</SelectItem>
-                      <SelectItem value="UNMODERATED_CAUCUS">Unmoderated Caucus</SelectItem>
-                      <SelectItem value="CONSULTATION_OF_THE_WHOLE">Consultation of the Whole</SelectItem>
+                      <SelectItem value="MODERATED_CAUCUS">Caucus Moderado</SelectItem>
+                      <SelectItem value="UNMODERATED_CAUCUS">Caucus no Moderado</SelectItem>
+                      <SelectItem value="CONSULTATION_OF_THE_WHOLE">Consulta de Gabinete</SelectItem>
                       <SelectItem value="ROUND_ROBIN">Round Robin</SelectItem>
-                      <SelectItem value="SPEAKERS_LIST">Speakers List</SelectItem>
-                      <SelectItem value="OPEN_DEBATE">Open Debate</SelectItem>
-                      <SelectItem value="SUSPENSION_OF_THE_MEETING">Suspension of the Meeting</SelectItem>
-                      <SelectItem value="ADJOURNMENT_OF_THE_MEETING">Adjournment of the Meeting</SelectItem>
-                      <SelectItem value="CLOSURE_OF_DEBATE">Closure of Debate</SelectItem>
+                      <SelectItem value="SPEAKERS_LIST">Lsta de oradores</SelectItem>
+                      <SelectItem value="OPEN_DEBATE">Debate abierto</SelectItem>
+                      <SelectItem value="SUSPENSION_OF_THE_MEETING">Suspender la sesion</SelectItem>
+                      <SelectItem value="ADJOURNMENT_OF_THE_MEETING">Cerrar la sesion</SelectItem>
+                      <SelectItem value="CLOSURE_OF_DEBATE">Cerrar el debate</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="country-search">Country</Label>
+                  <Label htmlFor="country-search">Pais</Label>
                   <div className="relative">
                     <Input
                       id="country-search"
-                      placeholder="Search for a country"
+                      placeholder="Busque un pais"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -239,7 +240,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                     onValueChange={(value) => setMotion(prev => ({ ...prev, country: countries.find(c => c.name === value) || null }))}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a country" />
+                      <SelectValue placeholder="Seleccione un pais" />
                     </SelectTrigger>
                     <SelectContent>
                       {filteredCountries.map((country) => (
@@ -262,7 +263,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                     <Label htmlFor="topic">Topic</Label>
                     <Input
                       id="topic"
-                      placeholder="Enter topic"
+                      placeholder="Ingrese el topico"
                       value={motion.topic || ''}
                       onChange={(e) => setMotion(prev => ({ ...prev, topic: e.target.value }))}
                     />
@@ -271,7 +272,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
 
                 {(hasTimeAttributes || hasTotalTimeOnly) && (
                   <div className="space-y-2">
-                    <Label>Total Time</Label>
+                    <Label>Tiempo total</Label>
                     <div className="flex space-x-2">
                       <Input
                         type="number"
@@ -297,7 +298,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                 {hasTimeAttributes && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="delegates">Number of Delegates</Label>
+                      <Label htmlFor="delegates">Numero de delegados</Label>
                       <Input
                         id="delegates"
                         type="number"
@@ -311,7 +312,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Time per Delegate</Label>
+                      <Label>Tiempo individual por delegado</Label>
                       <div className="flex space-x-2">
                         <Input
                           type="number"
@@ -330,29 +331,29 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                   </>
                 )}
 
-                <Button className="w-full" onClick={handleCreateMotion}>{motion.id ? 'Update Motion' : 'Create Motion'}</Button>
+                <Button className="w-full" onClick={handleCreateMotion}>{motion.id ? 'Update Motion' : 'Crear Mocion'}</Button>
               </CardContent>
             </Card>
           </DialogContent>
         </Dialog>
         <Button onClick={startVoting} disabled={isVoting || proposedMotions.length === 0}>
-          <Vote className="mr-2 h-4 w-4" /> Start Voting
+          <Vote className="mr-2 h-4 w-4" /> Comenzar Votacion
         </Button>
         <Button onClick={endVoting} disabled={!isVoting}>
-          <Play className="mr-2 h-4 w-4" /> End Voting
+          <Play className="mr-2 h-4 w-4" /> Cerrar Votacion
         </Button>
         {votingEnded && proposedMotions.length > 0 && (
           <Button onClick={goToDebate} className="bg-green-500 hover:bg-green-600">
-            <ArrowRight className="mr-2 h-4 w-4" /> Go to Debate
+            <ArrowRight className="mr-2 h-4 w-4" /> Ir al Debate
           </Button>
         )}
         <Button onClick={clearAllMotions} variant="destructive">
-          <Trash2 className="mr-2 h-4 w-4" /> Clear All Motions
+          <Trash2 className="mr-2 h-4 w-4" /> Eliminar mociones
         </Button>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Proposed Motions</h2>
+        <h2 className="text-2xl font-bold">Mociones Propuestas</h2>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="motions">
             {(provided) => (
@@ -372,7 +373,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                           <div className="flex-grow">
                             <h3 className="font-bold">{m.type}</h3>
                             <p>{m.country?.emoji} {m.country?.name}</p>
-                            {m.topic && <p>Topic: {m.topic}</p>}
+                            {m.topic && <p>Tópico: {m.topic}</p>}
                             {(m.totalTime || m.delegates) && (
                               <p>
                                 {m.totalTime && `Total Time: ${m.totalTime.minutes}m ${m.totalTime.seconds}s`}
@@ -383,7 +384,7 @@ export default function MocionClient({ countries, sessionId }: { countries: Coun
                           <div className="flex items-center space-x-2">
                             {isVoting ? (
                               <Button onClick={() => handleVote(m.id)}>
-                                Vote ({m.votes})
+                                Votar ({m.votes})
                               </Button>
                             ) : votingEnded ? (
                               <span className="font-bold">Votes: {m.votes}</span>

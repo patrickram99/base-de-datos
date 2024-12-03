@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 // Load environment variable
-const disableTimeValidation = process.env.DISABLE_TIME_VALIDATION === 'true';
+const disableTimeValidation = true;
 
 // Function to format date to readable string
 function formatDate(date: Date) {
@@ -43,9 +43,10 @@ async function getSessions() {
   return unstable_cache(
     async () => {
       const sessions = await prisma.session.findMany({
-        orderBy: {
-          date: 'asc',
-        },
+        orderBy: [
+          { id: 'asc' }, // Order by ID first
+          { date: 'asc' } // Then by date
+        ],
       });
       return sessions;
     },
