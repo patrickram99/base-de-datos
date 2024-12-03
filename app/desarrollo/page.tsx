@@ -20,7 +20,17 @@ async function getDelegates() {
       name: 'asc',
     },
   })
-  return delegates
+
+  // Ensure emoji is always a string
+  const formattedDelegates = delegates.map(delegate => ({
+    ...delegate,
+    country: {
+      ...delegate.country,
+      emoji: delegate.country.emoji || '',
+    },
+  }))
+
+  return formattedDelegates
 }
 
 export default async function DesarrolloPage({ searchParams }: { searchParams: { motion: string } }) {
